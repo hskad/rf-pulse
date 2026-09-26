@@ -3,226 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RF-Pulse: Physical Wi-Fi Deadzone & Link Auditor</title>
-  <meta name="description" content="Physical RF signal degradation & Wi-Fi deadzone auditor for campus networks using edge telemetry, Parquet, and AI diagnostic dispatch.">
+  <title>RF-Pulse | Physical Wi-Fi Deadzone & Link Auditor</title>
+  <meta name="description" content="Quantifying invisible radio-frequency wave attenuation through hostel physical barriers into actionable IT dispatch tickets.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-container">
-    <!-- Header -->
-    <header class="navbar">
-      <div class="brand">
-        <div class="pulse-indicator">
-          <span class="pulse-ring"></span>
-          <span class="pulse-dot"></span>
-        </div>
-        <div class="brand-text">
-          <h1>RF-Pulse</h1>
-          <span class="subtitle">Physical RF Deadzone & Link Degradation Auditor</span>
-        </div>
+  <!-- Sticky Minimalist Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="brand-wordmark">
+        RF-PULSE <span class="badge-pill">PHYSICAL AI</span>
+      </a>
+      <div class="header-meta">
+        <span><span class="status-indicator"></span><span id="nav-ssid">Detecting AP...</span> (<span id="nav-band">2.4 GHz</span>)</span>
+        <span>·</span>
+        <span><strong id="nav-real-count">0</strong> REAL OBS</span>
+        <span>·</span>
+        <span><span id="nav-total-count">0</span> TOTAL</span>
       </div>
-      <div class="hackathon-tag">
-        <span class="tag-label">Granica × IIT Guwahati</span>
-        <span class="tag-sub">48h Physical AI</span>
-      </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Top Action / Control Bar -->
-    <section class="control-banner glass-card">
-      <div class="control-left">
-        <div class="status-chip" id="connection-status">
-          <span class="status-dot green"></span> Connected: <strong id="chip-ssid">Detecting...</strong> (<span id="chip-band">2.4 GHz</span> Ch <span id="chip-channel">-</span>)
-        </div>
-        <div class="provenance-chip" id="provenance-status">
-          Dataset: <strong id="stat-total">0</strong> samples (<span class="real-highlight" id="stat-real">0 Real</span> · <span class="synth-highlight" id="stat-synth">0 Synthetic</span>)
-        </div>
-      </div>
-      <div class="control-actions">
-        <button id="btn-collect-open" class="btn btn-outline">
-          <span class="btn-icon">🔓</span> Sample Desk (Door Open)
+  <div class="page-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="mono-eyebrow">PHYSICAL AI · PARQUET LAKE · GRANICA × IIT GUWAHATI</div>
+      <h1 class="hero-headline">Physical Wi-Fi Deadzone & Link Auditor</h1>
+      <p class="hero-subtext">
+        Radio-frequency waves obey physical laws. RF-Pulse captures empirical decibel attenuation through hostel physical barriers, separating <span class="highlight-link">structural path-loss</span> from spectral congestion to generate verified IT remediation directives.
+      </p>
+
+      <!-- Action Toolbar -->
+      <div class="action-toolbar">
+        <button id="btn-collect-open" class="btn-granica-primary">
+          Sample Line-of-Sight (Door Open)
         </button>
-        <button id="btn-collect-closed" class="btn btn-outline">
-          <span class="btn-icon">🚪</span> Sample Desk (Door Closed)
+        <button id="btn-collect-closed" class="btn-granica-secondary">
+          Sample Barrier (Door Closed)
         </button>
-        <button id="btn-refresh" class="btn btn-primary">
-          <span class="btn-icon">🔄</span> Re-evaluate AI
+        <button id="btn-refresh" class="btn-granica-secondary">
+          Re-evaluate Model
         </button>
       </div>
     </section>
 
-    <!-- Main Dashboard Grid -->
-    <main class="dashboard-grid">
-      <!-- Live Metrics Row -->
-      <div class="card metric-card glass-card">
-        <div class="metric-header">
-          <span class="metric-title">Received Signal (RSSI)</span>
-          <span class="badge" id="badge-rssi">Real-time</span>
-        </div>
-        <div class="metric-body">
-          <div class="metric-value" id="val-rssi">--</div>
-          <span class="metric-unit">dBm</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="bar-rssi" style="width: 50%;"></div>
-        </div>
-        <div class="metric-footer" id="footer-rssi">Signal Quality: Calculating...</div>
+    <!-- 3-Column Granica Metric Grid -->
+    <dl class="granica-metrics-grid">
+      <div class="metric-cell">
+        <dt class="cell-eyebrow">01. Observed Signal (RSSI)</dt>
+        <dd class="cell-value" id="val-rssi">-- <span class="unit">dBm</span></dd>
+        <p class="cell-detail" id="detail-rssi">Connecting to edge probe telemetry...</p>
       </div>
 
-      <div class="card metric-card glass-card">
-        <div class="metric-header">
-          <span class="metric-title">Physical Link Rate (Tx)</span>
-          <span class="badge">PHY MCS</span>
-        </div>
-        <div class="metric-body">
-          <div class="metric-value" id="val-tx">--</div>
-          <span class="metric-unit">Mbps</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill blue" id="bar-tx" style="width: 60%;"></div>
-        </div>
-        <div class="metric-footer" id="footer-tx">Modulation & Coding state</div>
+      <div class="metric-cell">
+        <dt class="cell-eyebrow">02. Physical Door Attenuation</dt>
+        <dd class="cell-value" id="val-door-loss" style="color: var(--accent-red);">-- <span class="unit">dBm</span></dd>
+        <p class="cell-detail" id="detail-door-loss">Empirical decibel absorption through closed door.</p>
       </div>
 
-      <div class="card metric-card glass-card">
-        <div class="metric-header">
-          <span class="metric-title">Gateway Latency (RTT)</span>
-          <span class="badge">ICMP Echo</span>
-        </div>
-        <div class="metric-body">
-          <div class="metric-value" id="val-rtt">--</div>
-          <span class="metric-unit">ms</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill purple" id="bar-rtt" style="width: 30%;"></div>
-        </div>
-        <div class="metric-footer" id="footer-rtt">Jitter: -- ms · Loss: 0%</div>
+      <div class="metric-cell">
+        <dt class="cell-eyebrow">03. Latency & Jitter Variance</dt>
+        <dd class="cell-value" id="val-rtt">-- <span class="unit">ms</span></dd>
+        <p class="cell-detail" id="detail-rtt">Round-trip time to campus gateway.</p>
       </div>
+    </dl>
 
-      <div class="card metric-card glass-card">
-        <div class="metric-header">
-          <span class="metric-title">Active Access Point</span>
-          <span class="badge">BSSID MAC</span>
+    <!-- The Action: Granica White Box -->
+    <section class="granica-box">
+      <div class="box-header">
+        <div>
+          <div class="mono-eyebrow">OPERATIONAL ACTION · COMPUTER & COMMUNICATION CENTRE (CC)</div>
+          <h2 class="box-title">Automated Remediation Directive</h2>
         </div>
-        <div class="metric-body">
-          <div class="metric-value mono" id="val-bssid">--:--:--:--</div>
-        </div>
-        <div class="ap-details">
-          <span>SSID: <strong id="val-ssid">--</strong></span>
-          <span>Radio: <strong id="val-radio">802.11n/ax</strong></span>
-        </div>
-        <div class="metric-footer">Serving Corridor Infrastructure</div>
+        <button id="btn-copy-ticket" class="btn-granica-primary">
+          Copy Directive
+        </button>
       </div>
+      <pre class="ticket-terminal" id="ticket-content">
+Compiling physical observations into CC remediation ticket...
+      </pre>
+    </section>
 
-      <!-- Physical Barrier Attenuation Analysis -->
-      <section class="card glass-card col-span-2">
-        <div class="section-title-wrap">
-          <h2>Physical Barrier Decomposition (Door & Wall Path-Loss)</h2>
-          <span class="section-sub">Empirical decibel absorption measured through physical room boundaries</span>
+    <!-- The Evidence: Parquet Telemetry Stream -->
+    <section>
+      <div class="table-header-row">
+        <div>
+          <div class="mono-eyebrow">PROVENANCE & INTEGRITY</div>
+          <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--text-main);">Physical Telemetry Lake (Apache Parquet)</h3>
         </div>
-        <div class="attenuation-container">
-          <div class="attenuation-stat">
-            <span class="atten-label">Measured Door Attenuation</span>
-            <div class="atten-num" id="val-door-delta">-- dBm</div>
-            <p class="atten-desc" id="desc-door-delta">Calculated by comparing Line-of-Sight vs Non-Line-of-Sight at identical desk coordinates.</p>
-          </div>
-          <div class="table-responsive">
-            <table class="data-table" id="table-attenuation">
-              <thead>
-                <tr>
-                  <th>Location</th>
-                  <th>Door Open</th>
-                  <th>Door Closed</th>
-                  <th>Physical Drop</th>
-                  <th>Throughput Loss</th>
-                  <th>Samples</th>
-                </tr>
-              </thead>
-              <tbody id="tbody-attenuation">
-                <tr><td colspan="6" class="text-center">Loading empirical physical models...</td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="filter-pills">
+          <button class="pill-btn active" data-filter="all">All Records</button>
+          <button class="pill-btn" data-filter="real">Real Physical Only</button>
+          <button class="pill-btn" data-filter="synthetic">Synthetic (ITU-R P.1238)</button>
         </div>
-      </section>
+      </div>
+      <div class="table-wrap">
+        <table class="granica-table">
+          <thead>
+            <tr>
+              <th>Timestamp (UTC)</th>
+              <th>Data Type</th>
+              <th>Location</th>
+              <th>Door Barrier</th>
+              <th>RSSI (dBm)</th>
+              <th>PHY Rate</th>
+              <th>RTT (ms)</th>
+              <th>Jitter</th>
+              <th>Loss %</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-telemetry">
+            <tr><td colspan="9" style="text-align: center; padding: 20px;">Loading Parquet records...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-      <!-- AI Link Health & Risk Forecaster -->
-      <section class="card glass-card col-span-2">
-        <div class="section-title-wrap">
-          <h2>AI Link Health & Failure Forecaster</h2>
-          <span class="section-sub">Random Forest classification separating physical attenuation from spectral congestion</span>
-        </div>
-        <div class="health-breakdown" id="health-distribution-bars">
-          <!-- Populated by JS -->
-          <div class="health-state-row">
-            <span class="state-name">OPTIMAL</span>
-            <div class="state-bar-bg"><div class="state-bar-fill state-green" style="width: 25%;"></div></div>
-            <span class="state-val">--%</span>
-          </div>
-        </div>
-        <div class="verdict-banner" id="ai-verdict">
-          Evaluating telemetry against RF propagation standards...
-        </div>
-      </section>
-
-      <!-- Automated CC Remediation Dispatch Ticket -->
-      <section class="card glass-card col-span-4 ticket-card">
-        <div class="ticket-header">
-          <div>
-            <h2>Campus IT / Computer & Communication Centre (CC) Remediation Ticket</h2>
-            <span class="section-sub">Operational engineering directive ready for network administration dispatch</span>
-          </div>
-          <button id="btn-copy-ticket" class="btn btn-secondary">
-            📋 Copy Ticket to Clipboard
-          </button>
-        </div>
-        <pre class="ticket-code-block" id="ticket-content">
-Generating infrastructure remediation ticket...
-        </pre>
-      </section>
-
-      <!-- Telemetry Data Lake (Parquet Provenance) -->
-      <section class="card glass-card col-span-4">
-        <div class="section-title-wrap flex-between">
-          <div>
-            <h2>Physical Telemetry Lake (Apache Parquet)</h2>
-            <span class="section-sub">Inspectable records with explicit physical observation vs synthetic extension tagging</span>
-          </div>
-          <div class="filter-group">
-            <button class="filter-btn active" data-filter="all">All Records</button>
-            <button class="filter-btn" data-filter="real">Real Physical Only</button>
-            <button class="filter-btn" data-filter="synthetic">Synthetic (ITU-R P.1238)</button>
-          </div>
-        </div>
-        <div class="table-responsive max-h-350">
-          <table class="data-table" id="table-telemetry">
-            <thead>
-              <tr>
-                <th>Timestamp (UTC)</th>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Door</th>
-                <th>RSSI</th>
-                <th>Tx Rate</th>
-                <th>RTT</th>
-                <th>Jitter</th>
-                <th>Loss</th>
-              </tr>
-            </thead>
-            <tbody id="tbody-telemetry">
-              <tr><td colspan="9" class="text-center">Loading parquet records...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-      <span>RF-Pulse Physical AI Probe · Granica × IIT Guwahati Hackathon · 48 Hours</span>
-      <span>Engineered with Python, Apache Parquet & Native Edge Telemetry</span>
+    <!-- Minimalist Footer -->
+    <footer class="site-footer">
+      <div>RF-PULSE · BRING THE PHYSICAL WORLD TO AI · IIT GUWAHATI</div>
+      <div>APACHE PARQUET · PYTHON · SCKIKIT-LEARN</div>
     </footer>
   </div>
 
