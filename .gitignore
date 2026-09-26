@@ -27,7 +27,5 @@ secrets.json
 
 # OS specific
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-.DS_Store
+# Local documentation & speaker notes
+docs/
