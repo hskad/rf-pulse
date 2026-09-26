@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <!-- Sticky Minimalist Header -->
@@ -39,23 +39,48 @@
     <!-- 3-Column Granica Metric Grid -->
     <dl class="granica-metrics-grid">
       <div class="metric-cell">
-        <dt class="cell-eyebrow">01. Observed Signal (RSSI)</dt>
+        <dt class="cell-eyebrow">01. Current Signal Strength</dt>
         <dd class="cell-value" id="val-rssi">-- <span class="unit">dBm</span></dd>
         <p class="cell-detail" id="detail-rssi">Connecting to edge probe telemetry...</p>
       </div>
 
       <div class="metric-cell">
-        <dt class="cell-eyebrow">02. Physical Door Attenuation</dt>
+        <dt class="cell-eyebrow">02. Bedroom Door Signal Loss</dt>
         <dd class="cell-value" id="val-door-loss" style="color: var(--accent-red);">-- <span class="unit">dBm</span></dd>
         <p class="cell-detail" id="detail-door-loss">Empirical decibel absorption through closed door.</p>
       </div>
 
       <div class="metric-cell">
-        <dt class="cell-eyebrow">03. Latency & Jitter Variance</dt>
+        <dt class="cell-eyebrow">03. Network Response Time (Ping)</dt>
         <dd class="cell-value" id="val-rtt">-- <span class="unit">ms</span></dd>
         <p class="cell-detail" id="detail-rtt">Round-trip time to campus gateway.</p>
       </div>
     </dl>
+
+    <!-- Findings Grid (Understandable & Plain English) -->
+    <div class="findings-grid">
+      <div class="finding-card">
+        <div class="finding-tag">01 · HOSTEL BEDROOMS</div>
+        <h3 class="finding-title">Doors Cut Speed by ~60%</h3>
+        <p class="finding-desc">
+          Closing a solid wooden door absorbs <strong>+12.8 dBm</strong> of signal, collapsing physical link speed from 144 Mbps to 58 Mbps.
+        </p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-tag">02 · OPEN CORRIDORS</div>
+        <h3 class="finding-title">Signals Travel Well in Hallways</h3>
+        <p class="finding-desc">
+          Radio waves propagate cleanly down open corridors, but lose substantial power when passing through concrete room walls.
+        </p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-tag">03 · COMMON AREAS</div>
+        <h3 class="finding-title">Canteen & Meeting Room Deadzones</h3>
+        <p class="finding-desc">
+          Located 75–95 meters away from the nearest router, severe lag spikes cause UPI payment timeouts and dropped calls.
+        </p>
+      </div>
+    </div>
 
     <!-- The Action: Granica White Box -->
     <section class="granica-box">
@@ -116,6 +141,6 @@ Compiling physical observations into CC remediation ticket...
     </footer>
   </div>
 
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

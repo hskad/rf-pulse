@@ -16,7 +16,8 @@ from models.diagnostics import (
     compute_physical_attenuation,
     load_telemetry,
     train_link_health_classifier,
-    generate_cc_dispatch_ticket
+    generate_cc_dispatch_ticket,
+    fit_physical_path_loss_model
 )
 
 PORT = 8080
@@ -80,11 +81,12 @@ class RFPulseHandler(http.server.SimpleHTTPRequestHandler):
 
         df = pd.read_parquet(parquet_path)
         physical_summary = compute_physical_attenuation(df)
+        path_loss_summary = fit_physical_path_loss_model(df)
         clf, analyzed_df, classes = train_link_health_classifier(df)
         state_distribution = analyzed_df["predicted_state"].value_counts().to_dict()
-        ticket_text = generate_cc_dispatch_ticket(analyzed_df, physical_summary)
+        ticket_text = generate_cc_dispatch_ticket(analyzed_df, physical_summary, path_loss_summary)
 
-        # Sanitize ticket formatting (remove Rich markup for plain web text)
+        # Sanitize ticket formatting (clean plain web text)
         clean_ticket = ticket_text.replace("[bold cyan]", "").replace("[/bold cyan]", "")
         clean_ticket = clean_ticket.replace("[yellow]", "").replace("[/yellow]", "")
         clean_ticket = clean_ticket.replace("[dim]", "").replace("[/dim]", "")
@@ -93,6 +95,7 @@ class RFPulseHandler(http.server.SimpleHTTPRequestHandler):
 
         response = {
             "physical_decomposition": physical_summary,
+            "path_loss": path_loss_summary,
             "health_distribution": state_distribution,
             "ticket": clean_ticket.strip(),
             "latest_metrics": {

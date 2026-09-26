@@ -272,6 +272,59 @@ body {
   line-height: 1.5;
 }
 
+/* Findings Grid (Understandable & Plain English) */
+.findings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.7);
+  margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+  .findings-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.finding-card {
+  padding: 28px 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+@media (min-width: 768px) {
+  .finding-card {
+    border-bottom: none;
+    border-right: 1px solid var(--border-light);
+  }
+  .finding-card:last-child {
+    border-right: none;
+  }
+}
+
+.finding-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.finding-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.finding-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* Action Box / Ticket (Granica White Block) */
 .granica-box {
   background: #ffffff;
