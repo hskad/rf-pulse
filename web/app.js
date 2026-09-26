@@ -45,8 +45,10 @@ async function fetchTelemetry() {
     const data = await res.json();
     currentTelemetry = data.records || [];
 
-    document.getElementById('nav-total-count').innerText = data.total_rows || 0;
-    document.getElementById('nav-real-count').innerText = data.real_count || 0;
+    const totalEl = document.getElementById('nav-total-count');
+    if (totalEl) totalEl.innerText = data.total_rows || 0;
+    const realEl = document.getElementById('nav-real-count');
+    if (realEl) realEl.innerText = data.real_count || 0;
 
     renderTelemetryTable();
   } catch (err) {
@@ -58,8 +60,10 @@ function renderLiveMetrics(m, decomp) {
   if (!m) return;
 
   // Header meta
-  document.getElementById('nav-ssid').innerText = m.ssid || 'Connected';
-  document.getElementById('nav-band').innerText = `${m.band_ghz || 2.4} GHz Ch ${m.channel || '-'}`;
+  const ssidEl = document.getElementById('nav-ssid');
+  if (ssidEl) ssidEl.innerText = m.ssid || 'Connected';
+  const bandEl = document.getElementById('nav-band');
+  if (bandEl) bandEl.innerText = `${m.band_ghz || 2.4} GHz Ch ${m.channel || '-'}`;
 
   // Metric 1: Observed RSSI
   const rssiEl = document.getElementById('val-rssi');

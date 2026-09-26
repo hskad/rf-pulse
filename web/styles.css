@@ -318,6 +318,11 @@ body {
   gap: 12px;
 }
 
+.table-header-row .header-meta {
+  align-self: flex-end;
+  padding-bottom: 2px;
+}
+
 .filter-pills {
   display: flex;
   gap: 4px;
