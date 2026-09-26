@@ -15,8 +15,6 @@ function initApp() {
   fetchTelemetry();
 
   // Attach button listeners
-  document.getElementById('btn-collect-open').addEventListener('click', () => triggerProbe('Desk', 'Open'));
-  document.getElementById('btn-collect-closed').addEventListener('click', () => triggerProbe('Desk', 'Closed'));
   document.getElementById('btn-refresh').addEventListener('click', () => {
     fetchDiagnostics();
     fetchTelemetry();
@@ -130,33 +128,6 @@ function renderTelemetryTable() {
     `;
     tbody.appendChild(tr);
   });
-}
-
-async function triggerProbe(location, door) {
-  const btn = door === 'Open' ? document.getElementById('btn-collect-open') : document.getElementById('btn-collect-closed');
-  const originalText = btn.innerText;
-  btn.innerText = `Probing RF...`;
-  btn.disabled = true;
-
-  try {
-    const res = await fetch('/api/collect', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ location: location, door: door, samples: 3 })
-    });
-    const result = await res.json();
-    if (result.status === 'success') {
-      await fetchDiagnostics();
-      await fetchTelemetry();
-    } else {
-      alert(`Error collecting sample: ${result.error}`);
-    }
-  } catch (err) {
-    alert(`Failed to trigger probe: ${err.message}`);
-  } finally {
-    btn.innerText = originalText;
-    btn.disabled = false;
-  }
 }
 
 function copyTicketToClipboard() {
