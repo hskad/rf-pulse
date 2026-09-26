@@ -186,6 +186,27 @@ body {
   transform: translateY(-1px);
 }
 
+.btn-granica-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-granica-primary.success {
+  background: #15803d;
+  border-color: #15803d;
+  color: #ffffff;
+}
+
+@keyframes flashCell {
+  0% { background: rgba(255, 209, 0, 0.35); }
+  100% { background: rgba(255, 255, 255, 0.6); }
+}
+
+.metric-cell.flash {
+  animation: flashCell 1.2s ease-out;
+}
+
 .btn-granica-secondary {
   font-family: var(--font-mono);
   font-size: 11px;

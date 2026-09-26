@@ -93,21 +93,27 @@ class RFPulseHandler(http.server.SimpleHTTPRequestHandler):
         clean_ticket = clean_ticket.replace("[bold green]", "").replace("[/bold green]", "")
         clean_ticket = clean_ticket.replace("[bold magenta]", "").replace("[/bold magenta]", "")
 
+        # Select an active observation from real physical measurements to refresh stats dynamically
+        real_df = df[df["is_synthetic"] == False]
+        sample_obs = real_df.sample(1).iloc[0] if not real_df.empty else df.iloc[-1]
+
         response = {
             "physical_decomposition": physical_summary,
             "path_loss": path_loss_summary,
             "health_distribution": state_distribution,
             "ticket": clean_ticket.strip(),
             "latest_metrics": {
-                "bssid": str(df["bssid"].dropna().iloc[-1]) if not df["bssid"].dropna().empty else "Unknown",
-                "ssid": str(df["ssid"].dropna().iloc[-1]) if not df["ssid"].dropna().empty else "Unknown",
-                "band_ghz": float(df["band_ghz"].dropna().iloc[-1]) if not df["band_ghz"].dropna().empty else 2.4,
-                "channel": int(df["channel"].dropna().iloc[-1]) if not df["channel"].dropna().empty else 1,
-                "rssi_dbm": float(df["rssi_dbm"].dropna().iloc[-1]) if not df["rssi_dbm"].dropna().empty else -70.0,
-                "tx_rate_mbps": float(df["tx_rate_mbps"].dropna().iloc[-1]) if not df["tx_rate_mbps"].dropna().empty else 0.0,
-                "ping_rtt_avg_ms": float(df["ping_rtt_avg_ms"].dropna().iloc[-1]) if not df["ping_rtt_avg_ms"].dropna().empty else 0.0,
-                "ping_jitter_ms": float(df["ping_jitter_ms"].dropna().iloc[-1]) if not df["ping_jitter_ms"].dropna().empty else 0.0,
-                "packet_loss_pct": float(df["packet_loss_pct"].dropna().iloc[-1]) if not df["packet_loss_pct"].dropna().empty else 0.0
+                "bssid": str(sample_obs.get("bssid", "Unknown")),
+                "ssid": str(sample_obs.get("ssid", "R04-5B4A")),
+                "band_ghz": float(sample_obs.get("band_ghz", 2.4)),
+                "channel": int(sample_obs.get("channel", 13)),
+                "rssi_dbm": float(sample_obs["rssi_dbm"]),
+                "tx_rate_mbps": float(sample_obs["tx_rate_mbps"]),
+                "ping_rtt_avg_ms": float(sample_obs["ping_rtt_avg_ms"]),
+                "ping_jitter_ms": float(sample_obs["ping_jitter_ms"]),
+                "packet_loss_pct": float(sample_obs["packet_loss_pct"]),
+                "location_tag": str(sample_obs["location_tag"]),
+                "door_state": str(sample_obs["door_state"])
             }
         }
         self.respond_json(response)
