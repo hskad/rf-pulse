@@ -25,12 +25,13 @@
 
 ---
 
-### [1:15 - 2:05] Part 3: The Live Web Dashboard & AI Decomposition
+### [1:15 - 2:05] Part 3: The Live Web Dashboard & Physical Decomposition
 * **Screen:** Switch to browser running `http://localhost:8080`.
 * **Narration:**
-  > *"Here is the RF-Pulse dashboard. At the top, you can see our live AP connection and dataset provenance: 28 total observations, clearly showing our real physical points and synthetic extensions.*
-  > *In the Physical Barrier Decomposition card, our model isolates the exact physical door attenuation: closing the door absorbed over 6 dBm of signal and caused a significant throughput drop.*
-  > *Next, our AI Link Health classifier uses Random Forest to classify the link: notice it flags Channel 13 as CONGESTED because jitter exceeds 100 ms even when RSSI is moderate."*
+  > *"Here is the RF-Pulse dashboard, designed around Granica's minimalist engineering philosophy: high-contrast, uncluttered, and data-first.*
+  > *At the top, the status bar shows our serving AP and dataset provenance: 28 total observations with our real physical measurements clearly marked.*
+  > *In the 3-column metric grid, our engine isolates the core physics: our current RSSI, the +6.2 dBm empirical absorption across the closed door barrier, and the high channel jitter.*
+  > *Below that is our live Parquet stream, where any judge can inspect the raw and synthetic partitions without ambiguity."*
 
 ---
 
