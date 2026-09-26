@@ -24,16 +24,6 @@ function initApp() {
 
   document.getElementById('btn-copy-ticket').addEventListener('click', copyTicketToClipboard);
 
-  // Filter pill listeners
-  document.querySelectorAll('.pill-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      currentFilter = e.target.getAttribute('data-filter');
-      renderTelemetryTable();
-    });
-  });
-
   // Polling every 12 seconds
   setInterval(fetchDiagnostics, 12000);
 }
@@ -116,20 +106,13 @@ function renderTelemetryTable() {
   const tbody = document.getElementById('tbody-telemetry');
   tbody.innerHTML = '';
 
-  let filtered = currentTelemetry;
-  if (currentFilter === 'real') {
-    filtered = currentTelemetry.filter(r => r.is_synthetic === false);
-  } else if (currentFilter === 'synthetic') {
-    filtered = currentTelemetry.filter(r => r.is_synthetic === true);
-  }
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No records match filter "${currentFilter}".</td></tr>`;
+  if (!currentTelemetry || currentTelemetry.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No telemetry records available.</td></tr>`;
     return;
   }
 
   // Show newest first (limit 50)
-  const displayRecords = [...filtered].reverse().slice(0, 50);
+  const displayRecords = [...currentTelemetry].reverse().slice(0, 50);
 
   displayRecords.forEach(r => {
     const tr = document.createElement('tr');
