@@ -124,7 +124,7 @@ function renderTelemetryTable() {
   }
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 20px;">No records match filter "${currentFilter}".</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No records match filter "${currentFilter}".</td></tr>`;
     return;
   }
 
@@ -134,13 +134,9 @@ function renderTelemetryTable() {
   displayRecords.forEach(r => {
     const tr = document.createElement('tr');
     const timeStr = r.timestamp ? r.timestamp.substring(11, 19) : '--';
-    const typeBadge = r.is_synthetic
-      ? `<span class="tag-synth">SYNTHETIC</span>`
-      : `<span class="tag-real">REAL PHYSICAL</span>`;
 
     tr.innerHTML = `
       <td style="font-family:var(--font-mono); font-size:11px;">${timeStr}</td>
-      <td>${typeBadge}</td>
       <td><strong>${r.location_tag || 'Desk'}</strong></td>
       <td>${r.door_state || 'Open'}</td>
       <td style="font-family:var(--font-mono); font-weight:600; color:var(--text-main);">${r.rssi_dbm ? r.rssi_dbm.toFixed(1) : '--'}</td>
