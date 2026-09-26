@@ -110,6 +110,15 @@ function renderTicket(ticketText) {
   document.getElementById('ticket-content').innerText = ticketText;
 }
 
+function shuffleArray(arr) {
+  const array = [...arr];
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function renderTelemetryTable() {
   const tbody = document.getElementById('tbody-telemetry');
   tbody.innerHTML = '';
@@ -119,8 +128,8 @@ function renderTelemetryTable() {
     return;
   }
 
-  // Show all telemetry records (newest first)
-  const displayRecords = [...currentTelemetry].reverse();
+  // Randomize the order of measurements
+  const displayRecords = shuffleArray(currentTelemetry);
 
   displayRecords.forEach(r => {
     const tr = document.createElement('tr');
