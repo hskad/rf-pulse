@@ -94,7 +94,7 @@ function renderLiveMetrics(m, decomp) {
     doorLossEl.innerHTML = `+12.8 <span class="unit">dBm</span>`;
   }
   document.getElementById('detail-door-loss').innerText = 
-    `Closing the solid door drops connection speed from 144 Mbps down to 58 Mbps.`;
+    `Peak signal absorption measured across structural walls and solid room partitions.`;
 
   // Metric 3: Latency & Jitter
   const rttEl = document.getElementById('val-rtt');
@@ -119,8 +119,8 @@ function renderTelemetryTable() {
     return;
   }
 
-  // Show newest first (limit 50)
-  const displayRecords = [...currentTelemetry].reverse().slice(0, 50);
+  // Show all telemetry records (newest first)
+  const displayRecords = [...currentTelemetry].reverse();
 
   displayRecords.forEach(r => {
     const tr = document.createElement('tr');

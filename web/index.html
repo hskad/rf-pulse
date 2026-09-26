@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <!-- Sticky Minimalist Header -->
@@ -25,7 +25,7 @@
     <section class="hero-section">
       <h1 class="hero-headline">Physical Wi-Fi Deadzone & Link Auditor</h1>
       <p class="hero-subtext">
-        RF-Pulse measures physical Wi-Fi signal loss through hostel walls and doors differentiating <span class="highlight-link">structural deadzones</span> from network congestion to generate precise IT remediation directives.
+        RF-Pulse audits physical Wi-Fi signal loss across campus hostels and common facilities differentiating <span class="highlight-link">structural deadzones</span> from network congestion to generate precise IT remediation directives.
       </p>
 
       <!-- Action Toolbar -->
@@ -45,9 +45,9 @@
       </div>
 
       <div class="metric-cell">
-        <dt class="cell-eyebrow">02. Bedroom Door Signal Loss</dt>
+        <dt class="cell-eyebrow">02. Physical Barrier Loss</dt>
         <dd class="cell-value" id="val-door-loss" style="color: var(--accent-red);">-- <span class="unit">dBm</span></dd>
-        <p class="cell-detail" id="detail-door-loss">Empirical decibel absorption through closed door.</p>
+        <p class="cell-detail" id="detail-door-loss">Peak signal absorption measured across structural walls and partitions.</p>
       </div>
 
       <div class="metric-cell">
@@ -71,10 +71,10 @@
             <span class="philosophy-num">001.</span>
           </div>
           <div class="philosophy-content-col">
-            <p class="philosophy-category">Hostel Bedrooms</p>
-            <h3 class="philosophy-title">Doors Cut Speed by ~60%</h3>
+            <p class="philosophy-category">Hostel Living Quarters</p>
+            <h3 class="philosophy-title">Enclosed Rooms Absorb Over Half of Signal Power</h3>
             <p class="philosophy-desc">
-              Closing a solid wooden door absorbs <strong>+12.8 dBm</strong> of signal, collapsing physical link speed from 144 Mbps to 58 Mbps.
+              Interior walls and closed partitions absorb up to <strong>+12.8 dBm</strong> of signal, dropping physical link speed from 144 Mbps down to 58 Mbps.
             </p>
           </div>
         </li>
@@ -144,7 +144,7 @@ Compiling physical observations into CC remediation ticket...
             <tr>
               <th>Timestamp (UTC)</th>
               <th>Location</th>
-              <th>Door Barrier</th>
+              <th>Barrier State</th>
               <th>RSSI (dBm)</th>
               <th>PHY Rate</th>
               <th>RTT (ms)</th>
@@ -166,6 +166,6 @@ Compiling physical observations into CC remediation ticket...
     </footer>
   </div>
 
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

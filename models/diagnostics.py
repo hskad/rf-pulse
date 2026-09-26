@@ -190,15 +190,15 @@ def generate_cc_dispatch_ticket(df, physical_summary, path_loss_summary=None):
 AUDIT SUMMARY:
 RF-Pulse audited physical Wi-Fi coverage across 8 campus locations (360 measurements).
 Our analysis reveals two distinct physical causes of Wi-Fi issues on campus:
-  1. Significant signal absorption by solid hostel room doors.
-  2. Long-distance coverage gaps in common dining and meeting areas.
+  1. Structural barrier absorption across enclosed hostel room clusters.
+  2. Long-distance coverage gaps in common dining and meeting facilities.
 
 CORE FINDINGS:
 --------------------------------------------------------------------------------
-1. HOSTEL ROOMS (PHYSICAL DOOR BARRIER):
-   - Closing the room door causes an immediate +{max_door_delta:.1f} dBm signal drop.
-   - Connection speed collapses by ~59.7% (dropping from 144 Mbps to 58 Mbps).
-   - Video calls and large uploads experience sudden stutter when doors are shut.
+1. HOSTEL ROOM CLUSTERS (STRUCTURAL BARRIER LOSS):
+   - Interior room barriers and closed partitions induce a +{max_door_delta:.1f} dBm signal drop.
+   - Connection speed drops from 144 Mbps to 58 Mbps inside enclosed rooms.
+   - Video calls and large uploads experience sudden stutter when inside closed quarters.
 
 2. COMMON AREA DEADZONES (CANTEEN & CONFERENCE ROOM):
    - These areas are located 76 to 94 meters away from the nearest Fortinet AP.
@@ -209,7 +209,7 @@ ACTIONABLE IT REMEDIATION PLAN:
 --------------------------------------------------------------------------------
 [1] ADJUST CORRIDOR ACCESS POINT POSITIONING:
     Shift hallway AP bracket 1.5 to 2.0 meters closer to room clusters to offset
-    the +{max_door_delta:.1f} dBm loss caused by heavy wooden doors.
+    the +{max_door_delta:.1f} dBm loss caused by interior structural barriers.
 
 [2] INSTALL AUXILIARY AP IN CANTEEN:
     Deploy a dedicated ceiling access point in the Canteen to eliminate the
@@ -217,7 +217,7 @@ ACTIONABLE IT REMEDIATION PLAN:
 
 [3] OPTIMIZE 2.4 GHz / 5 GHz BAND STEERING:
     Lower the band-steering threshold so student devices smoothly switch to 
-    2.4 GHz when doors are shut, preventing 5 GHz signal extinction.
+    2.4 GHz when inside enclosed rooms, preventing 5 GHz signal extinction.
 ================================================================================"""
     return ticket_text
 
