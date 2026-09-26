@@ -22,6 +22,17 @@ function initApp() {
 
   document.getElementById('btn-copy-ticket').addEventListener('click', copyTicketToClipboard);
 
+  // Filter pills
+  const filterBtns = document.querySelectorAll('.pill-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter || 'all';
+      renderTelemetryTable();
+    });
+  });
+
   // Polling every 12 seconds
   setInterval(fetchDiagnostics, 12000);
 }
@@ -124,20 +135,32 @@ function renderTelemetryTable() {
   tbody.innerHTML = '';
 
   if (!currentTelemetry || currentTelemetry.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 20px;">No telemetry records available.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; padding: 20px;">No telemetry records available.</td></tr>`;
     return;
   }
 
+  // Filter based on active pill
+  let filtered = currentTelemetry;
+  if (currentFilter === 'real') {
+    filtered = currentTelemetry.filter(r => r.is_synthetic === false);
+  } else if (currentFilter === 'synth') {
+    filtered = currentTelemetry.filter(r => r.is_synthetic === true);
+  }
+
   // Randomize the order of measurements
-  const displayRecords = shuffleArray(currentTelemetry);
+  const displayRecords = shuffleArray(filtered);
 
   displayRecords.forEach(r => {
     const tr = document.createElement('tr');
     const timeStr = r.timestamp ? r.timestamp.substring(11, 19) : '--';
+    const typeBadge = r.is_synthetic
+      ? `<span class="tag-synth">SIM</span>`
+      : `<span class="tag-real">REAL</span>`;
 
     tr.innerHTML = `
       <td style="font-family:var(--font-mono); font-size:11px;">${timeStr}</td>
       <td><strong>${r.location_tag || 'Desk'}</strong></td>
+      <td style="text-align:center;">${typeBadge}</td>
       <td>${r.door_state || 'Open'}</td>
       <td style="font-family:var(--font-mono); font-weight:600; color:var(--text-main);">${r.rssi_dbm ? r.rssi_dbm.toFixed(1) : '--'}</td>
       <td style="font-family:var(--font-mono);">${r.tx_rate_mbps ? r.tx_rate_mbps.toFixed(0) + ' Mbps' : '--'}</td>

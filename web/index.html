@@ -130,10 +130,17 @@ Compiling physical observations into CC remediation ticket...
           <div class="mono-eyebrow">OBSERVATIONS & TELEMETRY</div>
           <h3 style="font-size: 1.15rem; font-weight: 600; color: var(--text-main);">Campus Wi-Fi Measurements</h3>
         </div>
-        <div class="header-meta">
-          <span><strong id="nav-real-count">0</strong> REAL OBS</span>
-          <span>·</span>
-          <span><span id="nav-total-count">0</span> TOTAL</span>
+        <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <div class="filter-pills" id="filter-container">
+            <button class="pill-btn active" data-filter="all">All (360)</button>
+            <button class="pill-btn" data-filter="real">Real Physical (120)</button>
+            <button class="pill-btn" data-filter="synth">Simulated (240)</button>
+          </div>
+          <div class="header-meta">
+            <span><strong id="nav-real-count">120</strong> REAL OBS</span>
+            <span>·</span>
+            <span><span id="nav-total-count">360</span> TOTAL</span>
+          </div>
         </div>
       </div>
       <div class="table-wrap">
@@ -142,6 +149,7 @@ Compiling physical observations into CC remediation ticket...
             <tr>
               <th>Timestamp (UTC)</th>
               <th>Location</th>
+              <th>Type</th>
               <th>Barrier State</th>
               <th>RSSI (dBm)</th>
               <th>PHY Rate</th>
@@ -151,7 +159,7 @@ Compiling physical observations into CC remediation ticket...
             </tr>
           </thead>
           <tbody id="tbody-telemetry">
-            <tr><td colspan="8" style="text-align: center; padding: 20px;">Loading Parquet records...</td></tr>
+            <tr><td colspan="9" style="text-align: center; padding: 20px;">Loading Parquet records...</td></tr>
           </tbody>
         </table>
       </div>
@@ -164,6 +172,6 @@ Compiling physical observations into CC remediation ticket...
     </footer>
   </div>
 
-  <script src="app.js?v=12"></script>
+  <script src="app.js?v=13"></script>
 </body>
 </html>
