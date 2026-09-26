@@ -32,8 +32,8 @@ All observations are serialized to the open **Apache Parquet** format with expli
 | Field | Type | Nature | Description |
 |---|---|---|---|
 | `timestamp` | `datetime64[ns]` | Observed | ISO-8601 UTC timestamp of observation |
-| `session_id` | `string` | Observed | Unique batch identifier |
-| `location_tag` | `string` | Observed | Physical location (`Desk`, `Bed`, `Doorway`, `Window`) |
+| `session_id` | `string` | Observed | Batch session identifier |
+| `location_tag` | `string` | Observed | Physical location (`Hostel_Room`, `Reading_Room`, `Security_Desk`, `Juice_Centre`, `Canteen`, `Stationary_Shop`, `Conference_Room`) |
 | `door_state` | `string` | Observed | Physical barrier state (`Open`, `Closed`) |
 | `bssid` | `string` | Observed | Anonymized BSSID (MAC address of serving AP) |
 | `ssid` | `string` | Observed | Network SSID |

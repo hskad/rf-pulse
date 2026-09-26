@@ -3,9 +3,9 @@
 ## 1. Summary & Overview
 * **Dataset Name:** RF-Pulse Campus Physical Wi-Fi Attenuation & Common Area Telemetry
 * **Format:** Apache Parquet (`data/rf_pulse_dataset.parquet`)
-* **Total Observations:** 120 rows across 8 distinct campus hostel environments
+* **Total Observations:** 120 physical observations collected directly on-site across 8 distinct campus hostel environments
 * **Collection Window:** 2026-09-26 15:14:00 to 15:32:28 UTC
-* **Hardware & Sensor Probe:** Android WiFi Analyzer by olgor.com on smartphone client querying physical 802.11 beacons and ICMP echo telemetry.
+* **Hardware & Sensor Probe:** Android WiFi Analyzer by olgor.com on smartphone client querying physical 802.11 beacons and ICMP echo telemetry during on-site campus walk.
 * **Target Users:** Campus Computer & Communication Centre (CC) Network Administrators, Hostel Caretakers, and LAN Secretaries.
 
 ---

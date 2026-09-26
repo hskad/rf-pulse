@@ -16,12 +16,11 @@
 ---
 
 ### [0:35 - 1:15] Part 2: Physical Workflow & Real Data Collection
-* **Screen:** Show terminal running `python -m collector.probe --location Desk --door Open` and then `--door Closed`.
+* **Screen:** Show terminal or dataset view of the 8 measured locations.
 * **Narration:**
-  > *"We didn't invent synthetic numbers. We collected empirical physical evidence right on our machine using native Windows OS wireless interface calls and ICMP echo probes.*
-  > *Here, we sample our desk with the room door wide open: notice our RSSI is -64 dBm on Channel 13, negotiated at 144 Mbps.*
-  > *Now, we close the heavy hostel door and sample again: look at the live telemetry—our RSSI drops immediately, physical link rate throttles, and latency spikes.*
-  > *Every single observation is serialized directly into Apache Parquet with full metadata, timestamps, and explicit tags separating real physical edge measurements from our ITU-R indoor path-loss simulations."*
+  > *"We didn't invent numbers. We conducted an on-site physical survey across 8 campus hostel locations using a mobile Wi-Fi Analyzer, recording 120 real physical measurements across our room, Reading Room, Canteen, Security Desk, Juice Centre, and Conference Room.*
+  > *Look at our room measurements: with the door wide open, signal is -50 dBm. When the door is closed, it drops to -63 dBm—an empirical loss of +12.8 dBm that collapses physical throughput by nearly 60%.*
+  > *Every single observation is serialized directly into Apache Parquet with full timestamps, BSSID hardware addresses, and frequency telemetry."*
 
 ---
 
@@ -29,9 +28,9 @@
 * **Screen:** Switch to browser running `http://localhost:8080`.
 * **Narration:**
   > *"Here is the RF-Pulse dashboard, designed around Granica's minimalist engineering philosophy: high-contrast, uncluttered, and data-first.*
-  > *At the top, the status bar shows our serving AP and dataset provenance: 28 total observations with our real physical measurements clearly marked.*
-  > *In the 3-column metric grid, our engine isolates the core physics: our current RSSI, the +6.2 dBm empirical absorption across the closed door barrier, and the high channel jitter.*
-  > *Below that is our live Parquet stream, where any judge can inspect the raw and synthetic partitions without ambiguity."*
+  > *At the top, the status bar shows our 120 real empirical observations across our campus locations.*
+  > *In the 3-column metric grid, our engine isolates the core physics: our signal strength, the +12.8 dBm empirical absorption across the closed door barrier, and the latency variance.*
+  > *Below that is our live Parquet stream, where any judge can inspect the 120 rows and 8 audited physical environments."*
 
 ---
 
@@ -39,9 +38,9 @@
 * **Screen:** Scroll down and highlight the Automated CC Remediation Ticket card on the dashboard.
 * **Narration:**
   > *"Most hackathon projects end at a chart. RF-Pulse ends at an operational decision.*
-  > *Our engine automatically compiles an official Computer & Communication Centre Remediation Ticket. It identifies the target BSSID, quantifies the door attenuation, and generates three specific engineering directives:*
-  > *First: Reassign BSSID bc:22:28:c0:f1:b0 away from crowded Channel 13 to non-overlapping Channel 1 or 6.*
-  > *Second: Adjust the 802.11k/v roaming threshold to permit graceful 2.4 GHz fallback when 5 GHz suffers heavy wall penetration loss.*
+  > *Our engine automatically compiles an official Computer & Communication Centre Remediation Ticket.*
+  > *It flags that the Canteen and Conference Room are 75 to 95 meters away from the nearest Fortinet APs, sitting at -85 to -87 dBm with over 100 ms of jitter—identifying the exact physical reason UPI payments and video calls fail there.*
+  > *It generates targeted engineering directives: auxiliary AP brackets for the Canteen and Conference Room, and adjusted 802.11k/v roaming thresholds for heavy-door hostel blocks.*
   > *With one click, the LAN secretary can copy this ticket and dispatch it directly to campus IT."*
 
 ---

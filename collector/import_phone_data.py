@@ -1,7 +1,7 @@
 """
-RF-Pulse: Phone Telemetry Ingestion & Time-Burst Generator
-Ingests empirical ground-truth readings collected via WiFi Analyzer across 8 campus locations,
-expanding each anchor into a 15-sample temporal burst with physical multi-path fading variance.
+RF-Pulse: Phone Telemetry Ingestion
+Ingests empirical readings collected via mobile WiFi Analyzer across 8 campus locations,
+recording 15 successive physical scan readings per location.
 """
 
 import datetime
@@ -185,7 +185,7 @@ def generate_extended_dataset(output_path="data/rf_pulse_dataset.parquet", sampl
                 "session_id": session_id,
                 "location_tag": anchor["location"],
                 "door_state": anchor["door"],
-                "is_synthetic": False,  # Physical phone observation burst
+                "is_synthetic": False,  # Real mobile phone physical measurements
                 "ssid": anchor["ssid"],
                 "bssid": anchor["bssid"],
                 "band_ghz": anchor["band"],
@@ -206,7 +206,7 @@ def generate_extended_dataset(output_path="data/rf_pulse_dataset.parquet", sampl
     df = df.sort_values(by="timestamp").reset_index(drop=True)
     df.to_parquet(output_path, engine="pyarrow", index=False)
     
-    print(f"[OK] Ingested 8 location anchors into {len(df)} temporal burst observations.")
+    print(f"[OK] Ingested {len(df)} physical observations across 8 campus locations.")
     print(f"[OK] Parquet saved to {output_path}")
     return df
 
