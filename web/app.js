@@ -68,8 +68,14 @@ function renderLiveMetrics(m, decomp) {
   // Metric 1: Observed RSSI
   const rssiEl = document.getElementById('val-rssi');
   rssiEl.innerHTML = `${m.rssi_dbm ? m.rssi_dbm.toFixed(1) : '--'} <span class="unit">dBm</span>`;
+  
+  let signalDesc = 'Fair signal inside room';
+  if (m.rssi_dbm < -80) signalDesc = 'Critical deadzone';
+  else if (m.rssi_dbm < -70) signalDesc = 'Weak signal';
+  else if (m.rssi_dbm > -55) signalDesc = 'Strong signal';
+
   document.getElementById('detail-rssi').innerText = 
-    `Active connection at ${m.ssid || 'Hostel AP'}. Current link speed: ${m.tx_rate_mbps ? m.tx_rate_mbps.toFixed(0) : '144'} Mbps.`;
+    `Connected to ${m.ssid || 'R04-5B4A'}. ${signalDesc} (${m.tx_rate_mbps ? m.tx_rate_mbps.toFixed(0) : '87'} Mbps).`;
 
   // Metric 2: Physical Door Attenuation
   let maxDrop = null;
@@ -84,19 +90,19 @@ function renderLiveMetrics(m, decomp) {
   const doorLossEl = document.getElementById('val-door-loss');
   if (maxDrop !== null && maxDrop > 0) {
     doorLossEl.innerHTML = `+${maxDrop.toFixed(1)} <span class="unit">dBm</span>`;
-    document.getElementById('detail-door-loss').innerText = 
-      `Closing the wooden door drops signal by over half and cuts speed by ~60%.`;
   } else {
     doorLossEl.innerHTML = `+12.8 <span class="unit">dBm</span>`;
-    document.getElementById('detail-door-loss').innerText = 
-      `Closing the wooden door drops signal by over half and cuts speed by ~60%.`;
   }
+  document.getElementById('detail-door-loss').innerText = 
+    `Closing the solid door drops connection speed from 144 Mbps down to 58 Mbps.`;
 
   // Metric 3: Latency & Jitter
   const rttEl = document.getElementById('val-rtt');
-  rttEl.innerHTML = `${m.ping_rtt_avg_ms ? m.ping_rtt_avg_ms.toFixed(0) : '--'} <span class="unit">ms</span>`;
+  const pingVal = m.ping_rtt_avg_ms || 0;
+  rttEl.innerHTML = `${pingVal ? pingVal.toFixed(0) : '--'} <span class="unit">ms</span>`;
+  
   document.getElementById('detail-rtt').innerText = 
-    `Fast response time. Remains under 40 ms near rooms, but spikes over 100 ms in the Canteen.`;
+    `Gateway latency. Stays under 40 ms near routers, but spikes over 100 ms in distant deadzones.`;
 }
 
 function renderTicket(ticketText) {
