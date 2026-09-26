@@ -1,0 +1,13 @@
+# Core data processing & Parquet serialization
+pandas>=2.0.0
+pyarrow>=14.0.0
+numpy>=1.24.0
+
+# Machine Learning & diagnostics
+scikit-learn>=1.3.0
+
+# Terminal UI & formatting
+rich>=13.0.0
+
+# Optional visualization / web server
+matplotlib>=3.7.0
