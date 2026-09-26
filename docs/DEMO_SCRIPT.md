@@ -24,20 +24,20 @@
 
 ---
 
-### [1:15 - 2:05] Part 3: The Live Web Dashboard & Physical Decomposition
+### [1:15 - 2:05] Part 3: The Live Web Dashboard & Plain-English Insights
 * **Screen:** Switch to browser running `http://localhost:8080`.
 * **Narration:**
-  > *"Here is the RF-Pulse dashboard, designed around Granica's minimalist engineering philosophy: high-contrast, uncluttered, and data-first.*
-  > *At the top, the status bar shows our 120 real empirical observations across our campus locations.*
-  > *In the 3-column metric grid, our engine isolates the core physics: our signal strength, the +12.8 dBm empirical absorption across the closed door barrier, and the latency variance.*
-  > *Below that is our live Parquet stream, where any judge can inspect the 120 rows and 8 audited physical environments."*
+  > *"Here is the RF-Pulse dashboard, designed around Granica's minimalist engineering philosophy: clean typography, high contrast, and data-first clarity.*
+  > *In the 3-column metric grid at the top, our engine isolates the core physics: active Wi-Fi signal, the empirical +12.8 dBm absorption across the closed bedroom door, and network response time.*
+  > *Right below, our findings grid translates the physics into plain English: closed doors cut speeds by ~60%, open hallways conduct waves efficiently (loss factor 1.8), and common areas like the Canteen and Conference Room suffer from 75 to 94 meter distance gaps.*
+  > *Near our Parquet telemetry lake, judges can see our 120 real on-site measurements and 360 total records with zero uncalibrated noise."*
 
 ---
 
 ### [2:05 - 2:45] Part 4: The Impact — Automated CC Dispatch Ticket
-* **Screen:** Scroll down and highlight the Automated CC Remediation Ticket card on the dashboard.
+* **Screen:** Scroll down and highlight the Automated CC Remediation Directive terminal on the dashboard.
 * **Narration:**
-  > *"Most hackathon projects end at a chart. RF-Pulse ends at an operational decision.*
+  > *"Most hackathon projects stop at a chart. RF-Pulse ends at an operational decision.*
   > *Our engine automatically compiles an official Computer & Communication Centre Remediation Ticket.*
   > *It flags that the Canteen and Conference Room are 75 to 95 meters away from the nearest Fortinet APs, sitting at -85 to -87 dBm with over 100 ms of jitter—identifying the exact physical reason UPI payments and video calls fail there.*
   > *It generates targeted engineering directives: auxiliary AP brackets for the Canteen and Conference Room, and adjusted 802.11k/v roaming thresholds for heavy-door hostel blocks.*
