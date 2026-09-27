@@ -65,8 +65,7 @@ function initApp() {
     });
   });
 
-  // Polling every 12 seconds
-  setInterval(fetchDiagnostics, 12000);
+  // Polling disabled: stats update strictly on demand via 'btn-refresh'
 }
 
 async function fetchDiagnostics() {
