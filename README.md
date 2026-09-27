@@ -13,24 +13,38 @@
 
 ---
 
-## 2. The Physical Workflow & Collection
+## 2. Physical Data Collection & Telemetry Lake
 
-Radio Frequency (RF) waves at 2.4 GHz and 5 GHz exhibit distinct physical wave propagation characteristics:
-* **Physical Attenuation ($\Delta\text{RSSI}_{\text{physical}}$):** High-density materials (reinforced concrete: ~12–18 dB loss, closed solid wood doors: ~12.8 dB loss) absorb and scatter electromagnetic radiation. 5 GHz attenuates significantly faster than 2.4 GHz through solid barriers.
-* **Long-Distance Fringe Deadzones:** Common areas located 75–95 meters away from corridor APs suffer severe path loss ($-84$ to $-87\text{ dBm}$) and ping jitter spikes (>100 ms), leading to dropped calls and UPI payment timeouts.
+### The On-Site Collection Journey (Walking Campus & Hostel)
+The hackathon problem statement emphasizes: *"A clever proxy can beat expensive equipment. Cheap is fine. Real is required."* Rather than relying on simulated assumptions or inaccessible ₹5,00,000 lab spectrum analyzers, **we walked the IIT Guwahati campus and hostel on foot**, using an everyday Android smartphone as an edge RF sensor probe.
 
-### The Dataset (`data/rf_pulse_dataset.parquet`)
-- **120 Real Physical Observations:** Collected on-site across 8 campus environments using mobile Wi-Fi Analyzer telemetry:
-  1. `Hostel_Room (Door Open)`: -50.1 dBm mean (2.4 GHz Ch 13)
-  2. `Hostel_Room (Door Closed)`: -62.9 dBm mean $\rightarrow$ **+12.8 dBm empirical door drop, 59.7% PHY rate collapse**
-  3. `Security Desk`: -49.9 dBm (1m from Fortinet AP)
-  4. `Juice Centre`: -55.2 dBm (2m from Fortinet AP)
-  5. `Reading Room`: -68.6 dBm (12m through door barrier)
-  6. `Stationary Shop`: -68.9 dBm (12m from Fortinet AP)
-  7. `Conference Room`: -84.4 dBm (76m distance $\rightarrow$ **Deadzone**)
-  8. `Canteen`: -87.3 dBm (94m distance $\rightarrow$ **Critical Deadzone / UPI drop**)
-- **240 Physics-Simulated Extensions:** Calibrated using the **ITU-R P.1238 Indoor Path-Loss Model**, modeling corridor waveguide propagation ($n=1.84$), concrete wall penetration ($4.4\text{ dB/wall}$), and peak evening traffic contention.
-- **Total Dataset:** 360 observations with 100% explicit provenance (`is_synthetic` boolean flag).
+* **Open-Source Tooling on the Phone:** We deployed open-source mobile Wi-Fi auditing software (*WiFi Analyzer* / open network telemetry utilities on Android) to passively listen to raw 802.11 beacon frames, hardware BSSIDs, frequency bands (2.4 GHz vs 5.0 GHz), operating channels, and negotiated physical link speeds (Tx/Rx PHY rate), coupled with gateway ICMP echo latency measurements.
+* **120 Real Ground-Truth Physical Scans:** We conducted an on-site physical site survey across **8 distinct campus environments**, logging bursts of 15 successive empirical measurements at each location to capture real signal fluctuations, multi-path fading, and physical obstruction effects:
+  1. `Hostel_Room (Door Open)`: Line-of-sight to corridor router (**-50.1 dBm**, 144 Mbps link rate).
+  2. `Hostel_Room (Door Closed)`: Same physical position with standard solid wooden door shut $\rightarrow$ **+12.8 dBm empirical signal loss, collapsing speed by 59.7% down to 58 Mbps**.
+  3. `Security Desk`: 1 meter line-of-sight from enterprise Fortinet AP (**-49.9 dBm**, 400 Mbps).
+  4. `Juice Centre`: Outdoor boundary threshold 2 meters away (**-55.2 dBm**, 300 Mbps).
+  5. `Reading Room`: Enclosed study space behind interior partitions (**-68.6 dBm**, 173 Mbps).
+  6. `Stationary Shop`: High paper stack dielectric absorption area (**-68.9 dBm**, 173 Mbps).
+  7. `Conference Room`: Shielded space with heavy acoustic panels 76m away (**-84.4 dBm**, 54 Mbps deadzone).
+  8. `Canteen`: Dining hall 94m away from the nearest AP (**-87.3 dBm**, 36 Mbps, 192 ms RTT latency) $\rightarrow$ **Critical Deadzone explaining widespread UPI payment timeouts**.
+
+### The Parquet Telemetry Lake (`data/rf_pulse_dataset.parquet`)
+All mobile telemetry logs were structured and serialized into a lightweight, columnar **Apache Parquet** dataset (19.7 KB, 17 strictly typed schema columns) with 100% verified lineage:
+* **120 Real Physical Observations (`is_synthetic = False`):** Genuine ground-truth measurements collected on-site by walking the campus.
+* **240 Calibrated ITU-R Extensions (`is_synthetic = True`):** Calibrated using the international **ITU-R P.1238 Indoor Path-Loss Model**, extending the empirical anchors to simulate peak dinner-rush contention and adjacent concrete walls.
+* **Total Dataset:** 360 observations with zero schema drift. Every single row carries an explicit boolean flag so judges and engineers can instantly isolate real vs. extended data.
+
+### Inspecting the Telemetry (TUI & Web)
+You can verify the dataset lineage and empirical findings without a browser using the built-in terminal inspector:
+```bash
+# Inspect only the 120 real physical scans collected on campus
+python -m data.inspect --real
+
+# High-level summary of physical barrier drops and location benchmarks
+python -m data.inspect --summary
+```
+Or interactively filter between **All (360)**, **Real Physical (120)**, and **Simulated (240)** on the live web dashboard.
 
 ---
 
@@ -92,6 +106,12 @@ Instead of a passive dashboard with raw charts, RF-Pulse outputs an **Automated 
 ### Installation
 ```bash
 pip install -r requirements.txt
+```
+
+### Inspecting the Dataset (Terminal UI)
+```bash
+# View the 120 empirical physical scans collected on-site
+python -m data.inspect --real
 ```
 
 ### Running the AI Diagnostic Engine
